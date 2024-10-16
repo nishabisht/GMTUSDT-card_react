@@ -5,151 +5,145 @@ import "./Form.css";
 import logo from "../img/logo.jpg";
 
 const Form = () => {
-  const [isCardVisible, setCardVisible] = useState(false);
+  const [entryPrice, setEntryPrice] = useState("");
+  const [margin, setMargin] = useState("");
+  const [markPrice, setMarkPrice] = useState("");
+  const [leverage, setLeverage] = useState("");
+  const [size, setSize] = useState(null);
+  const [unreleasedPnl, setUnreleasedPnl] = useState(null);
+  const [roi, setRoi] = useState(null);
+  const [marginRatio, setMarginRatio] = useState(null);
+  const [isCardVisible, setIsCardVisible] = useState(false);
+  const [lidPrice, setLidPrice] = useState(0);
 
-  const handleCardOnClick = (e) => {
-    e.preventDefault(); // Prevent form submission
-    setCardVisible(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const size = margin * leverage;
+    const calculatedRoi = ((markPrice - entryPrice) / entryPrice) * 100;
+    const unreleasedPnl = (calculatedRoi * margin) / 100;
+    const calculatedMarginRatio = (margin / size) * 100;
+
+    setLidPrice(0.09565);
+    setEntryPrice(entryPrice);
+    setSize(size);
+    setUnreleasedPnl(unreleasedPnl);
+    setRoi(calculatedRoi);
+    setMarginRatio(calculatedMarginRatio);
+    setIsCardVisible(true);
   };
 
-  const handleResetOnClick = () => {
-    setCardVisible(false);
+  const handleClose = () => {
+    setIsCardVisible(false);
   };
 
   return (
-    <div className="d-flex justify-content-center flex-column ">
-      {/* Form Section */}
-      {!isCardVisible && (
-        <div className="row justify-content-center" id="form">
-          <div className="card col-lg-6 col-md-8 col-sm-10 col-12 m-3 p-4">
-            <h4 className="text-center">Form Application</h4>
+    <div className="container-fuild d-flex justify-content-center align-items-center">
+      <div className="form-container">
+        {!isCardVisible && (
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Entry Price (USDT)</label>
+              <input
+                type="number"
+                step="0.00001"
+                value={entryPrice}
+                onChange={(e) => setEntryPrice(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Margin (USDT)</label>
+              <input
+                type="number"
+                step="0.00001"
+                value={margin}
+                onChange={(e) => setMargin(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Mark Price (USDT)</label>
+              <input
+                type="number"
+                step="0.00001"
+                value={markPrice}
+                onChange={(e) => setMarkPrice(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Leverage</label>
+              <input
+                type="number"
+                step="0.00001"
+                value={leverage}
+                onChange={(e) => setLeverage(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className="submit-btn">
+              Submit
+            </button>
+          </form>
+        )}
 
-            <form>
-              <div className="form-group">
-                <label htmlFor="exampleInputEmail1">Email address</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                />
-                <small id="emailHelp" className="form-text text-muted">
-                  We'll never share your email with anyone else.
-                </small>
+        {isCardVisible && (
+          <div className="gmt-card ">
+            <div className="card-header">
+              <div className="logo">B</div>
+              <div className="card-title ">
+                <span className="gmt">GMTUSDT</span>
+                <span className="gmt-badge">Perp</span>
+                <span className="gmt-badge">Cross 20x</span>
+                <span className="gmt gray">!!!!</span>
+
+                <span className="gmt gray right-icon ">
+                  <FontAwesomeIcon icon={faShareNodes} />
+                </span>
               </div>
-
-              <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="exampleInputPassword1"
-                  placeholder="Password"
-                />
+            </div>
+            <div className="card-body">
+              <div className="row">
+                <div className="col">
+                  <div className="dotted label">Unrealized PNL (USDT)</div>
+                  <div className={unreleasedPnl >= 0 ? "green" : "red"}>
+                    {unreleasedPnl.toFixed(2)}
+                  </div>
+                  <div className="dotted label">Size (USDT) </div>
+                  <div>{size.toFixed(5)}</div>
+                  <div className="dotted label">Entry Price (USDT) </div>
+                  <div>{entryPrice}</div>
+                </div>
+                <div className="col">
+                  <div className="spacer"></div> {/* First empty space */}
+                  <div className="spacer"></div> {/* Second empty space */}
+                  <div className="label">Margin (USDT) </div>
+                  <div>{margin}</div>
+                  <div className="label">Mark Price (USDT) </div>
+                  <div>{markPrice}</div>
+                </div>
+                <div className="col text-end">
+                  <div className="dotted label">ROI</div>
+                  <div className={roi >= 0 ? "green" : "red"}>
+                    {roi.toFixed(2)}%
+                  </div>
+                  <div className="dotted label">Margin Ratio </div>
+                  <div>{marginRatio.toFixed(2)}%</div>
+                  <div className="label">Liq. Price (USDT) </div>
+                  <div>{lidPrice.toFixed(5)}</div>
+                </div>
               </div>
-
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label className="form-check-label" htmlFor="exampleCheck1">
-                  Check me out
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                onClick={handleCardOnClick}
-                className="btn btn-primary mt-3 w-100"
-              >
-                Submit
+            </div>
+            <div className="card-footer">
+              <button className="action-btn">Leverage</button>
+              <button className="action-btn">TP/SL</button>
+              <button className="action-btn" onClick={handleClose}>
+                Close
               </button>
-            </form>
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Custom Card Section */}
-      {isCardVisible && (
-        <div className="row justify-content-center align-item-center">
-          <div className="offset-lg-3"></div>
-          <div className="card justify-content-center col-lg-6 col-md-8 col-sm-10 col-12 m-1 p-4 bg-dark text-white">
-            <div className="row align-items-center m-2 px-5">
-              <div className="col-auto">
-                <div className="logo p-0">
-                  <img src={logo} alt="img" style={{ width: "50px" }} />
-                </div>
-              </div>
-
-              <div className="col">
-                <div className="heading d-flex align-items-start">
-                  <span>GMTUSDT</span>
-                  <span className="sub-head badge bg-secondary mx-2">Perp</span>
-                  <span className="badge bg-secondary">Cross 20x </span>
-                  <span className="badge text-secondary">!!!!</span>
-                </div>
-              </div>
-
-              <div className="col-auto">
-                <FontAwesomeIcon icon={faShareNodes} />
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-between mt-3">
-              <div className="col-auto px-3">
-                <u className="text-secondary dotted">Unrealized PNL (USDT)</u>
-                <div className="text-danger">-0.01</div>
-
-                <u className="text-secondary dotted">Size (USDT)</u>
-                <div>19.89852</div>
-
-                <u className="text-secondary dotted">Entry Price (USDT)</u>
-                <div>0.12606</div>
-              </div>
-
-              <div className="col-auto px-3">
-                <div className="text-secondary ">Margin (USDT)</div>
-                <div>0.99</div>
-
-                <div className="text-secondary ">Mark Price (USDT)</div>
-                <div>0.12604</div>
-              </div>
-
-              <div className="col-auto px-3">
-                <u className="text-secondary dotted">ROI</u>
-                <div className="text-danger">-1.90%</div>
-
-                <u className="text-secondary dotted">Margin Ratio</u>
-                <div className="text-success">5.94%</div>
-
-                <div className="text-secondary">Liq. Price (USDT)</div>
-                <div>0.09565</div>
-              </div>
-            </div>
-
-            <div className="d-flex justify-content-between mt-3">
-              <div className="col-auto">
-                <button className="btn btn-secondary">Leverage</button>
-              </div>
-              <div className="col-auto">
-                <button className="btn btn-secondary">TP/SL</button>
-              </div>
-              <div className="col-auto">
-                <button
-                  className="btn btn-secondary"
-                  onClick={handleResetOnClick}
-                >
-                  Reset
-                </button>
-              </div>
-            </div>
-            <div className="offset-lg-3"></div>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
