@@ -1,7 +1,12 @@
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDownload,
+  faDownLong,
+  faShareNodes,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import "./Form.css";
+import html2canvas from "html2canvas";
 
 const Form = () => {
   const [entryPrice, setEntryPrice] = useState("");
@@ -42,9 +47,18 @@ const Form = () => {
     setIsCardVisible(false);
   };
 
+  const downloadCard = () => {
+    html2canvas(document.querySelector(".gmt-card")).then((canvas) => {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "card.png";
+      link.click();
+    });
+  };
+
   return (
     <div className="container-fuild d-flex flex-column justify-content-center align-items-center">
-      <h2 className="heading m-3 my-5">GMTUSDT dashboard</h2>
+      <h2 className="heading m-3 my-5">GMTUSDT Dashboard</h2>
 
       {!isCardVisible && (
         <div className="form-container">
@@ -130,77 +144,83 @@ const Form = () => {
       )}
 
       {isCardVisible && (
-        <div className="card-container">
-          <div className="gmt-card">
-            <div className="card-header">
-              <div className="logo">B</div>
-              <div className="card-title">
-                <span className="gmt">GMTUSDT</span>
-                <span className="gmt-badge">Perp</span>
-                <span className="gmt-badge">Cross 20x</span>
-                <span className="gmt gray">!!!!</span>
-                <span className="gmt gray right-icon ">
-                  <FontAwesomeIcon icon={faShareNodes} />
-                </span>
-              </div>
-            </div>
-            <div className="card-body">
-              <div className="row">
-                <div className="col">
-                  <div className="dotted label">Unrealized PNL (USDT)</div>
-                  <div
-                    className={
-                      unreleasedPnl > 0.0
-                        ? "green numbers fs-5"
-                        : "red numbers fs-5"
-                    }
-                  >
-                    {unreleasedPnl.toFixed(2)}
-                  </div>
-                  <div className="dotted label">Size (USDT)</div>
-                  <div className="numbers">{size.toFixed(5)}</div>
-                  <div className="dotted label">Entry Price (USDT)</div>
-                  <div className="numbers">{entryPrice}</div>
-                </div>
-                <div className="col">
-                  <div className="spacer"></div>
-                  <div className="spacer"></div>
-                  <div className="label">Margin (USDT)</div>
-                  <div className="numbers">{margin}</div>
-                  <div className="label">Mark Price (USDT)</div>
-                  <div className="numbers">{markPrice}</div>
-                </div>
-                <div className="col text-end">
-                  <div className="dotted label">ROI</div>
-                  <div
-                    className={
-                      roi > 0.0 ? "green numbers fs-5" : "red numbers fs-5"
-                    }
-                  >
-                    {roi.toFixed(2)}%
-                  </div>
-                  <div className="dotted label">Margin Ratio</div>
-                  <div
-                    className={
-                      marginRatio < 0.0 ? "red numbers" : "green numbers"
-                    }
-                  >
-                    {marginRatio.toFixed(2)}%
-                  </div>
-                  <div className="label">Liq. Price (USDT)</div>
-                  <div className="numbers">{lidPrice.toFixed(5)}</div>
+        <>
+          <div className="card-container">
+            <div className="gmt-card">
+              <div className="card-header">
+                <div className="logo">B</div>
+                <div className="card-title">
+                  <span className="gmt">GMTUSDT</span>
+                  <span className="gmt-badge">Perp</span>
+                  <span className="gmt-badge">Cross 20x</span>
+                  <span className="gmt gray">!!!!</span>
+                  <span className="gmt gray right-icon ">
+                    <FontAwesomeIcon icon={faShareNodes} />
+                  </span>
                 </div>
               </div>
-            </div>
-            <div className="card-footer">
-              <button className="action-btn">Leverage</button>
-              <button className="action-btn">TP/SL</button>
-              <button className="action-btn" onClick={handleClose}>
-                Close
-              </button>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col">
+                    <div className="dotted label">Unrealized PNL (USDT)</div>
+                    <div
+                      className={
+                        unreleasedPnl > 0.0
+                          ? "green numbers fs-5"
+                          : "red numbers fs-5"
+                      }
+                    >
+                      {unreleasedPnl.toFixed(2)}
+                    </div>
+                    <div className="dotted label">Size (USDT)</div>
+                    <div className="numbers">{size.toFixed(5)}</div>
+                    <div className="dotted label">Entry Price (USDT)</div>
+                    <div className="numbers">{entryPrice}</div>
+                  </div>
+                  <div className="col">
+                    <div className="spacer"></div>
+                    <div className="spacer"></div>
+                    <div className="label">Margin (USDT)</div>
+                    <div className="numbers">{margin}</div>
+                    <div className="label">Mark Price (USDT)</div>
+                    <div className="numbers">{markPrice}</div>
+                  </div>
+                  <div className="col text-end">
+                    <div className="dotted label">ROI</div>
+                    <div
+                      className={
+                        roi > 0.0 ? "green numbers fs-5" : "red numbers fs-5"
+                      }
+                    >
+                      {roi.toFixed(2)}%
+                    </div>
+                    <div className="dotted label">Margin Ratio</div>
+                    <div
+                      className={
+                        marginRatio < 0.0 ? "red numbers" : "green numbers"
+                      }
+                    >
+                      {marginRatio.toFixed(2)}%
+                    </div>
+                    <div className="label">Liq. Price (USDT)</div>
+                    <div className="numbers">{lidPrice.toFixed(5)}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="card-footer">
+                <button className="action-btn">Leverage</button>
+                <button className="action-btn">TP/SL</button>
+                <button className="action-btn" onClick={handleClose}>
+                  Close
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+          <button className="btn btn-success my-2" onClick={downloadCard}>
+            <FontAwesomeIcon icon={faDownload} className="px-1" />
+            Card
+          </button>
+        </>
       )}
     </div>
   );
