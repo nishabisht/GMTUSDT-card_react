@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/GMTUSDT-card_react/static/css/main.5cee3139.css",
+    "main.css": "/GMTUSDT-card_react/static/css/main.65af8dc2.css",
     "main.js": "/GMTUSDT-card_react/static/js/main.9de0e3e4.js",
     "static/js/453.ace3e5dd.chunk.js": "/GMTUSDT-card_react/static/js/453.ace3e5dd.chunk.js",
     "static/media/HvDTrial_FabrikatKompakt-Light-BF64d599868b650.otf": "/GMTUSDT-card_react/static/media/HvDTrial_FabrikatKompakt-Light-BF64d599868b650.2d33edbbf120f77e4e4a.otf",
     "static/media/HvDTrial_FabrikatKompakt-Medium-BF64d599863ad82.otf": "/GMTUSDT-card_react/static/media/HvDTrial_FabrikatKompakt-Medium-BF64d599863ad82.6057b9f152a6ce679c18.otf",
     "static/media/HvDTrial_FabrikatKompakt-Black-BF64d5998612cf0.otf": "/GMTUSDT-card_react/static/media/HvDTrial_FabrikatKompakt-Black-BF64d5998612cf0.f8f5664f257a6edc7e9e.otf",
     "index.html": "/GMTUSDT-card_react/index.html",
-    "main.5cee3139.css.map": "/GMTUSDT-card_react/static/css/main.5cee3139.css.map",
+    "main.65af8dc2.css.map": "/GMTUSDT-card_react/static/css/main.65af8dc2.css.map",
     "main.9de0e3e4.js.map": "/GMTUSDT-card_react/static/js/main.9de0e3e4.js.map",
     "453.ace3e5dd.chunk.js.map": "/GMTUSDT-card_react/static/js/453.ace3e5dd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5cee3139.css",
+    "static/css/main.65af8dc2.css",
     "static/js/main.9de0e3e4.js"
   ]
 }
