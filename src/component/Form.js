@@ -1,8 +1,12 @@
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDownload,
+  faDownLong,
+  faShareNodes,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import "./Form.css";
-import logo from "../img/logo.jpg";
+import html2canvas from "html2canvas";
 
 const Form = () => {
   const [entryPrice, setEntryPrice] = useState("");
@@ -14,6 +18,7 @@ const Form = () => {
   const [roi, setRoi] = useState(null);
   const [marginRatio, setMarginRatio] = useState(null);
   const [isCardVisible, setIsCardVisible] = useState(false);
+  const [tradeType, setTradeType] = useState("");
   const [lidPrice, setLidPrice] = useState(0);
 
   const handleSubmit = (e) => {
@@ -22,8 +27,14 @@ const Form = () => {
     const calculatedRoi = ((markPrice - entryPrice) / entryPrice) * 100;
     const unreleasedPnl = (calculatedRoi * margin) / 100;
     const calculatedMarginRatio = (margin / size) * 100;
+    let calculatedLidPrice = 0;
+    if (tradeType === "long") {
+      calculatedLidPrice = entryPrice * (1 - 1 / leverage);
+    } else if (tradeType === "short") {
+      calculatedLidPrice = entryPrice * (1 + 1 / leverage);
+    }
 
-    setLidPrice(0.09565);
+    setLidPrice(calculatedLidPrice);
     setEntryPrice(entryPrice);
     setSize(size);
     setUnreleasedPnl(unreleasedPnl);
@@ -36,10 +47,21 @@ const Form = () => {
     setIsCardVisible(false);
   };
 
+  const downloadCard = () => {
+    html2canvas(document.querySelector(".gmt-card")).then((canvas) => {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "card.png";
+      link.click();
+    });
+  };
+
   return (
-    <div className="container-fuild d-flex justify-content-center align-items-center">
-      <div className="form-container">
-        {!isCardVisible && (
+    <div className="container-fuild d-flex flex-column justify-content-center align-items-center">
+      <h2 className="heading m-3 my-5">GMTUSDT Dashboard</h2>
+
+      {!isCardVisible && (
+        <div className="form-container">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Entry Price (USDT)</label>
@@ -51,6 +73,7 @@ const Form = () => {
                 required
               />
             </div>
+
             <div className="form-group">
               <label>Margin (USDT)</label>
               <input
@@ -81,69 +104,124 @@ const Form = () => {
                 required
               />
             </div>
+            <div className="form-group d-flex justify-content-around">
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  name="position"
+                  type="radio"
+                  id="long"
+                  value="long"
+                  checked={tradeType === "long"}
+                  onChange={(e) => setTradeType(e.target.value)}
+                  required
+                />
+                <div className="form-check-label" htmlFor="long">
+                  Long
+                </div>
+              </div>
+              <div className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  name="position"
+                  type="radio"
+                  id="short"
+                  value="short"
+                  checked={tradeType === "short"}
+                  onChange={(e) => setTradeType(e.target.value)}
+                  required
+                />
+                <div className="form-check-label" htmlFor="short">
+                  Short
+                </div>
+              </div>
+            </div>
             <button type="submit" className="submit-btn">
               Submit
             </button>
           </form>
-        )}
+        </div>
+      )}
 
-        {isCardVisible && (
-          <div className="gmt-card ">
-            <div className="card-header">
-              <div className="logo">B</div>
-              <div className="card-title ">
-                <span className="gmt">GMTUSDT</span>
-                <span className="gmt-badge">Perp</span>
-                <span className="gmt-badge">Cross 20x</span>
-                <span className="gmt gray">!!!!</span>
-
-                <span className="gmt gray right-icon ">
-                  <FontAwesomeIcon icon={faShareNodes} />
-                </span>
-              </div>
-            </div>
-            <div className="card-body">
-              <div className="row">
-                <div className="col">
-                  <div className="dotted label">Unrealized PNL (USDT)</div>
-                  <div className={unreleasedPnl >= 0 ? "green" : "red"}>
-                    {unreleasedPnl.toFixed(2)}
-                  </div>
-                  <div className="dotted label">Size (USDT) </div>
-                  <div>{size.toFixed(5)}</div>
-                  <div className="dotted label">Entry Price (USDT) </div>
-                  <div>{entryPrice}</div>
-                </div>
-                <div className="col">
-                  <div className="spacer"></div> {/* First empty space */}
-                  <div className="spacer"></div> {/* Second empty space */}
-                  <div className="label">Margin (USDT) </div>
-                  <div>{margin}</div>
-                  <div className="label">Mark Price (USDT) </div>
-                  <div>{markPrice}</div>
-                </div>
-                <div className="col text-end">
-                  <div className="dotted label">ROI</div>
-                  <div className={roi >= 0 ? "green" : "red"}>
-                    {roi.toFixed(2)}%
-                  </div>
-                  <div className="dotted label">Margin Ratio </div>
-                  <div>{marginRatio.toFixed(2)}%</div>
-                  <div className="label">Liq. Price (USDT) </div>
-                  <div>{lidPrice.toFixed(5)}</div>
+      {isCardVisible && (
+        <>
+          <div className="card-container">
+            <div className="gmt-card">
+              <div className="card-header">
+                <div className="logo">B</div>
+                <div className="card-title">
+                  <span className="gmt">GMTUSDT</span>
+                  <span className="gmt-badge">Perp</span>
+                  <span className="gmt-badge">Cross 20x</span>
+                  <span className="gmt gray">!!!!</span>
+                  <span className="gmt gray right-icon ">
+                    <FontAwesomeIcon icon={faShareNodes} />
+                  </span>
                 </div>
               </div>
-            </div>
-            <div className="card-footer">
-              <button className="action-btn">Leverage</button>
-              <button className="action-btn">TP/SL</button>
-              <button className="action-btn" onClick={handleClose}>
-                Close
-              </button>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col">
+                    <div className="dotted label">Unrealized PNL (USDT)</div>
+                    <div
+                      className={
+                        unreleasedPnl > 0.0
+                          ? "green numbers fs-5"
+                          : "red numbers fs-5"
+                      }
+                    >
+                      {unreleasedPnl.toFixed(2)}
+                    </div>
+                    <div className="dotted label">Size (USDT)</div>
+                    <div className="numbers">{size.toFixed(5)}</div>
+                    <div className="dotted label">Entry Price (USDT)</div>
+                    <div className="numbers">{entryPrice}</div>
+                  </div>
+                  <div className="col">
+                    <div className="spacer"></div>
+                    <div className="spacer"></div>
+                    <div className="label">Margin (USDT)</div>
+                    <div className="numbers">{margin}</div>
+                    <div className="label">Mark Price (USDT)</div>
+                    <div className="numbers">{markPrice}</div>
+                  </div>
+                  <div className="col text-end">
+                    <div className="dotted label">ROI</div>
+                    <div
+                      className={
+                        roi > 0.0 ? "green numbers fs-5" : "red numbers fs-5"
+                      }
+                    >
+                      {roi.toFixed(2)}%
+                    </div>
+                    <div className="dotted label">Margin Ratio</div>
+                    <div
+                      className={
+                        marginRatio < 0.0 ? "red numbers" : "green numbers"
+                      }
+                    >
+                      {marginRatio.toFixed(2)}%
+                    </div>
+                    <div className="label">Liq. Price (USDT)</div>
+                    <div className="numbers">{lidPrice.toFixed(5)}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="card-footer">
+                <button className="action-btn">Leverage</button>
+                <button className="action-btn">TP/SL</button>
+                <button className="action-btn" onClick={handleClose}>
+                  Close
+                </button>
+              </div>
             </div>
           </div>
-        )}
-      </div>
+          <button className="btn btn-success my-2" onClick={downloadCard}>
+            <FontAwesomeIcon icon={faDownload} className="px-1" />
+            Card
+          </button>
+        </>
+      )}
     </div>
   );
 };
