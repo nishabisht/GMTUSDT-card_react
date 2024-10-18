@@ -1,3 +1,47 @@
+body {
+  /* font-family: "Roboto", "Arial", "Helvetica", sans-serif; */
+  font-family: "Fabrikat", sans-serif;
+  background-color: #1f1f1f; /* Dark background */
+  color: #e0e0e0; /* Light gray text */
+}
+@font-face {
+  font-family: "Fabrikat"; /* The name you will use in your CSS */
+  src: url("/src/font/fabrikat-kompakt-font-family-1729202473-0/HvDTrial_FabrikatKompakt-Light-BF64d599868b650.otf")
+      format("otf"),
+    url("/src/font/fabrikat-kompakt-font-family-1729202473-0/HvDTrial_FabrikatKompakt-Black-BF64d5998612cf0.otf")
+      format("otf"),
+    url("/src/font/fabrikat-kompakt-font-family-1729202473-0/HvDTrial_FabrikatKompakt-Medium-BF64d599863ad82.otf")
+      format("otf");
+  font-weight: normal; /* You can set to bold if your font has a specific weight */
+  font-style: normal; /* Change if you have italic, etc. */
+}
+
+h1,
+h2 {
+  font-weight: 700; /* Bold font for headings */
+}
+
+p,
+span {
+  font-weight: 400; /* Normal font weight for smaller text */
+  font-size: 14px; /* Base font size */
+}
+
+.important-text {
+  color: #ffffff; /* White color for important text */
+}
+
+.red {
+  color: hsl(351.48deg 81.82% 61.18%); /* Red color for negative metrics */
+}
+
+.green {
+  color: hsl(158.97deg 38.65% 50.78%); /* Green color for positive metrics */
+}
+.numbers {
+  font-family: "Fabrikat", sans-serif;
+  font-weight: 400; /* Normal font weight */
+}
 .dotted {
   border-bottom: 1px dashed #999;
   white-space: nowrap;
@@ -17,7 +61,7 @@
   display: flex;
   width: 40px;
   height: 40px;
-  background-color: #00c58e;
+  background-color: hsl(158.97deg 38.65% 50.78%);
   font-size: 30px;
   border-radius: 5px;
   font-weight: 500;
@@ -26,28 +70,28 @@
   align-content: center;
   align-items: center;
 }
-.red {
-  color: hsl(351.97deg 81.35% 62.16%);
-  font-size: 15px;
-}
-
-.green {
-  color: hsl(163.92deg 39.27% 48.43%);
-  font-size: 20px;
-}
 
 .spacer {
-  height: 39px;
+  height: 40px;
 }
-
+.heading {
+}
+button {
+  font-family: "Fabrikat", sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 .gmt-card {
-  background-color: #121212;
+  background-color: #1f1f1f;
   font-size: 17px;
   padding: 15px;
   margin-top: 20px;
   color: white;
-  width: 600px; /* Fixed width to ensure the card stays consistent */
-  height: 400px; /* Fixed height to ensure the card remains consistent */
+  width: 600px; /* Fixed width for the card */
+  height: 400px; /* Fixed height for the card */
 }
 
 .card-header {
@@ -74,13 +118,13 @@ span.gmt {
 }
 
 span.gmt.gray {
-  color: #888e9a;
+  color: hsl(222.5deg 12.9% 36.47%);
 }
 
 .gmt-badge {
   background-color: #29313d;
   border-radius: 3px;
-  font-family: sans-serif;
+  font-family: "Roboto", "Arial", "Helvetica", sans-serif;
   font-size: 19px;
   padding: 2px 14px;
   margin: 8px 4px;
@@ -90,8 +134,8 @@ span.gmt.gray {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  width: 570px; /* Fixed width */
-  height: 250px; /* Fixed height for the card body */
+  /* width: 570px;  */
+  height: 245px; /* Fixed height for the card body */
 }
 
 .col {
@@ -125,13 +169,24 @@ span.gmt.gray {
 }
 
 .form-container {
-  width: 640px; /* Fixed width for the form */
+  width: 34%;
   box-shadow: 1px 5px 50px #8e8e9fcf;
   background-color: #fffafb;
-  padding: 20px; /* Fixed padding */
-  margin: 20px auto; /* Fixed margin */
+  padding: 2% 2%;
+  margin: 1% auto;
   border-radius: 8px;
   color: #000000;
+}
+
+.card-container {
+  /* Use flexbox to manage layout */
+  width: 90%; /* Responsive width for mobile */
+  height: 100%; /* Maintain fixed height */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: space-between; /* Ensures even spacing between elements */
+  align-items: center; /* Center horizontally */
+  overflow-x: auto; /* Allow vertical scrolling */
 }
 
 .form-group {
@@ -144,8 +199,8 @@ label {
 }
 
 input {
-  width: 580px; /* Fixed width for input */
-  padding: 8px;
+  width: 100%;
+  padding: 9px 2%;
   background-color: #e1e1e4;
   border: none;
   border-radius: 4px;
@@ -160,4 +215,11 @@ input {
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
+}
+/* Media queries for responsiveness */
+@media (max-width: 666px) {
+  .form-container {
+    width: 90%; /* Adjust form width for mobile */
+    padding: 10px; /* Adjust padding for mobile */
+  }
 }
