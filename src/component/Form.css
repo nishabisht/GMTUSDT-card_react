@@ -208,7 +208,6 @@ input {
   background-color: #1f1f1f;
   font-size: 17px;
   padding: 15px 0px;
-  margin-top: 20px;
   color: white;
   width: 600px; /* Fixed width for the card */
   height: 400px; /* Fixed height for the card */
@@ -224,5 +223,11 @@ input {
   .card-container {
     justify-content: flex-start;
     padding: 0 10px;
+  }
+
+  .gmt-card {
+    width: 600px !important;
+    height: 400px !important;
+    flex-shrink: 0 !important; /* Prevent card from shrinking */
   }
 }
