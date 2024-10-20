@@ -174,7 +174,7 @@ const Form = () => {
                   <div className="logo logo-long">B</div>
                 )}
                 <div className="card-title">
-                  <span className="gmt">{coinType}</span>
+                  <span className="gmt">{coinType.toUpperCase()}</span>
                   <span className="gmt-badge">Perp</span>
                   <span className="gmt-badge">Cross {leverage}x</span>
                   <span
