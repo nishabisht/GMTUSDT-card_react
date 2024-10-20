@@ -207,8 +207,8 @@ const Form = () => {
                     <div
                       className={
                         unreleasedPnl > 0.0
-                          ? "green numbers fs-5 font-weight-bold"
-                          : "red numbers fs-5 font-weight-bold"
+                          ? "green numbers fs-2 bold"
+                          : "red numbers fs-2 bold"
                       }
                     >
                       {unreleasedPnl.toFixed(2)}
@@ -231,11 +231,11 @@ const Form = () => {
                     <div
                       className={
                         roi > 0.0
-                          ? "green numbers fs-5 font-weight-bold"
-                          : "red numbers fs-5 font-weight-bold"
+                          ? "green numbers fs-2 bold"
+                          : "red numbers fs-2 bold"
                       }
                     >
-                      {roi.toFixed(2)}%
+                      +{roi.toFixed(2)}%
                     </div>
                     <div className="dotted label">Margin Ratio</div>
                     <div

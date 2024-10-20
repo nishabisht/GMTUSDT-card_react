@@ -54,20 +54,22 @@ span {
   height: 20px;
 }
 .right-icon {
+  font-size: 23px !important;
   margin-left: auto;
-  padding: 0px 20px;
+  padding: 0px 32px;
 }
 .logo {
   display: flex;
-  width: 40px;
-  height: 40px;
-  font-size: 30px;
+  width: 33px;
+  height: 33px;
+  font-size: 28px;
   border-radius: 5px;
-  font-weight: 500;
-  margin: 0px 14px;
+  font-weight: 400;
+  margin: 0px 8px 0px 8px;
   justify-content: center;
   align-content: center;
   align-items: center;
+  /* font-weight: 400; */
 }
 .logo-long {
   background-color: #51b290;
@@ -78,7 +80,7 @@ span {
 }
 
 .spacer {
-  height: 40px;
+  height: 42px;
 }
 
 button {
@@ -109,10 +111,9 @@ button {
   flex-grow: 1; /* Ensures card-title takes available space */
 }
 span.gmt {
-  font-size: 30px;
-  font-weight: 500;
+  font-size: 28px;
+  font-weight: 450;
 }
-
 span.gmt.gray {
   color: hsl(222.5deg 12.9% 36.47%);
 }
@@ -120,10 +121,11 @@ span.gmt.gray {
 .gmt-badge {
   background-color: #29313d;
   border-radius: 3px;
-  font-family: "Roboto", "Arial", "Helvetica", sans-serif;
-  font-size: 19px;
-  padding: 2px 14px;
-  margin: 8px 4px;
+  font-family: "Fabrikat", sans-serif;
+  font-size: 15px;
+  padding: 2px 12px;
+  margin: 8px 2px;
+  color: #cbd0d8;
 }
 
 .card-body {
@@ -138,30 +140,34 @@ span.gmt.gray {
   width: 45%; /* Set fixed width for columns */
 }
 
+.bold {
+  font-weight: bold;
+}
 .card-footer {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .action-btn {
   height: 50px;
-  width: 180px;
-  font-size: 17px;
+  width: 182px;
+  font-size: 20px;
   font-weight: 500;
-  background-color: #343a46;
+  background-color: #353e4b;
   border: none;
   padding: 8px 12px;
   border-radius: 8px;
   color: #fff;
+  margin-inline-end: 9px;
   cursor: pointer;
 }
 
 .label {
   color: hsl(220deg 8.18% 56.86%);
   white-space: nowrap;
-  font-weight: 500;
-  word-spacing: 4px;
-  margin-block: 10px;
+  font-weight: 400;
+  word-spacing: 3px;
+  margin-block: 7px;
 }
 
 .form-container {
@@ -211,12 +217,12 @@ input {
 }
 
 .gmt-card {
-  background-color: #1f1f1f;
-  font-size: 17px;
-  padding: 15px 0px;
+  background-color: #1c2431;
+  font-size: 19px;
+  padding: 12px 0px;
   color: white;
-  width: 600px; /* Fixed width for the card */
-  height: 400px; /* Fixed height for the card */
+  width: 600px;
+  height: 400px;
 }
 
 /* Media queries for responsiveness */
