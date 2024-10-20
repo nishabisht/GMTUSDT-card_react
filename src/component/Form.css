@@ -32,7 +32,7 @@ span {
 }
 
 .red {
-  color: hsl(351.48deg 81.82% 61.18%); /* Red color for negative metrics */
+  color: #ed4b62; /* Red color for negative metrics */
 }
 
 .green {
@@ -61,7 +61,6 @@ span {
   display: flex;
   width: 40px;
   height: 40px;
-  background-color: hsl(158.97deg 38.65% 50.78%);
   font-size: 30px;
   border-radius: 5px;
   font-weight: 500;
@@ -69,6 +68,13 @@ span {
   justify-content: center;
   align-content: center;
   align-items: center;
+}
+.logo-long {
+  background-color: #51b290;
+}
+
+.logo-short {
+  background-color: #ed4b62;
 }
 
 .spacer {

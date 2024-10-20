@@ -20,13 +20,14 @@ const Form = () => {
   const [isCardVisible, setIsCardVisible] = useState(false);
   const [tradeType, setTradeType] = useState("");
   const [lidPrice, setLidPrice] = useState(0);
+  const [coinType, setCoinType] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const size = margin * leverage;
     const calculatedRoi = ((markPrice - entryPrice) / entryPrice) * 100;
     const unreleasedPnl = (calculatedRoi * margin) / 100;
-    const calculatedMarginRatio = (margin / size) * 100;
+    // const calculatedMarginRatio = (margin / size) * 100;
     let calculatedLidPrice = 0;
     if (tradeType === "long") {
       calculatedLidPrice = entryPrice * (1 - 1 / leverage);
@@ -39,7 +40,7 @@ const Form = () => {
     setSize(size);
     setUnreleasedPnl(unreleasedPnl);
     setRoi(calculatedRoi);
-    setMarginRatio(calculatedMarginRatio);
+    // setMarginRatio(calculatedMarginRatio);
     setIsCardVisible(true);
   };
 
@@ -58,7 +59,7 @@ const Form = () => {
 
   return (
     <div className="container-fuild d-flex flex-column justify-content-center align-items-center">
-      <h2 className="heading m-3 my-5">GMTUSDT Dashboard</h2>
+      <h2 className="heading m-3 my-5">{coinType.toUpperCase()} Dashboard</h2>
 
       {!isCardVisible && (
         <div className="form-container">
@@ -91,6 +92,25 @@ const Form = () => {
                 step="0.00001"
                 value={markPrice}
                 onChange={(e) => setMarkPrice(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Coin Type</label>
+              <input
+                type="text"
+                value={coinType}
+                onChange={(e) => setCoinType(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Margin Ratio</label>
+              <input
+                type="number"
+                step="0.00001"
+                value={marginRatio}
+                onChange={(e) => setMarginRatio(e.target.value)}
                 required
               />
             </div>
@@ -148,12 +168,33 @@ const Form = () => {
           <div className="card-container">
             <div className="gmt-card">
               <div className="card-header">
-                <div className="logo">B</div>
+                {tradeType === "short" ? (
+                  <div className="logo logo-short">S</div>
+                ) : (
+                  <div className="logo logo-long">B</div>
+                )}
                 <div className="card-title">
-                  <span className="gmt">GMTUSDT</span>
+                  <span className="gmt">{coinType}</span>
                   <span className="gmt-badge">Perp</span>
-                  <span className="gmt-badge">Cross 20x</span>
-                  <span className="gmt gray">!!!!</span>
+                  <span className="gmt-badge">Cross {leverage}x</span>
+                  <span
+                    className={tradeType === "short" ? "gmt red" : "gmt green"}
+                  >
+                    !!!
+                    <span
+                      className={
+                        tradeType === "short"
+                          ? roi >= 100
+                            ? "gmt red"
+                            : "gmt gray"
+                          : roi >= 100
+                          ? "gmt green"
+                          : "gmt gray"
+                      }
+                    >
+                      !
+                    </span>
+                  </span>
                   <span className="gmt gray right-icon ">
                     <FontAwesomeIcon icon={faShareNodes} />
                   </span>
@@ -166,8 +207,8 @@ const Form = () => {
                     <div
                       className={
                         unreleasedPnl > 0.0
-                          ? "green numbers fs-5"
-                          : "red numbers fs-5"
+                          ? "green numbers fs-5 font-weight-bold"
+                          : "red numbers fs-5 font-weight-bold"
                       }
                     >
                       {unreleasedPnl.toFixed(2)}
@@ -189,7 +230,9 @@ const Form = () => {
                     <div className="dotted label">ROI</div>
                     <div
                       className={
-                        roi > 0.0 ? "green numbers fs-5" : "red numbers fs-5"
+                        roi > 0.0
+                          ? "green numbers fs-5 font-weight-bold"
+                          : "red numbers fs-5 font-weight-bold"
                       }
                     >
                       {roi.toFixed(2)}%
@@ -200,7 +243,7 @@ const Form = () => {
                         marginRatio < 0.0 ? "red numbers" : "green numbers"
                       }
                     >
-                      {marginRatio.toFixed(2)}%
+                      {marginRatio}%
                     </div>
                     <div className="label">Liq. Price (USDT)</div>
                     <div className="numbers">{lidPrice.toFixed(5)}</div>
