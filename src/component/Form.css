@@ -60,10 +60,11 @@ span {
 }
 .logo {
   display: flex;
-  width: 33px;
-  height: 33px;
-  font-size: 28px;
-  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+  font-family: monospace;
+  font-size: 22px;
+  border-radius: 4px;
   font-weight: 400;
   margin: 0px 8px 0px 8px;
   justify-content: center;
@@ -146,6 +147,7 @@ span.gmt.gray {
 .card-footer {
   display: flex;
   justify-content: center;
+  gap: 8px;
 }
 
 .action-btn {
@@ -158,7 +160,6 @@ span.gmt.gray {
   padding: 8px 12px;
   border-radius: 8px;
   color: #fff;
-  margin-inline-end: 9px;
   cursor: pointer;
 }
 

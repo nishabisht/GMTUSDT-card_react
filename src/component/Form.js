@@ -235,7 +235,7 @@ const Form = () => {
                           : "red numbers fs-2 bold"
                       }
                     >
-                      +{roi.toFixed(2)}%
+                      {roi > 0 ? `+ ${roi.toFixed(2)}%` : `${roi.toFixed(2)}%`}
                     </div>
                     <div className="dotted label">Margin Ratio</div>
                     <div
