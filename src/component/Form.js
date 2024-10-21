@@ -21,11 +21,13 @@ const Form = () => {
   const [tradeType, setTradeType] = useState("");
   const [lidPrice, setLidPrice] = useState(0);
   const [coinType, setCoinType] = useState("");
+  const entryPriceDecimals = entryPrice.split(".")[1]?.length || 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const size = margin * leverage;
-    const calculatedRoi = ((markPrice - entryPrice) / entryPrice) * 100;
+    const calculatedRoi =
+      ((markPrice - entryPrice) / entryPrice) * 100 * leverage;
     const unreleasedPnl = (calculatedRoi * margin) / 100;
     // const calculatedMarginRatio = (margin / size) * 100;
     let calculatedLidPrice = 0;
@@ -207,8 +209,8 @@ const Form = () => {
                     <div
                       className={
                         unreleasedPnl > 0.0
-                          ? "green numbers fs-2 bold"
-                          : "red numbers fs-2 bold"
+                          ? "green numbers bold"
+                          : "red numbers bold"
                       }
                     >
                       {unreleasedPnl.toFixed(2)}
@@ -230,9 +232,7 @@ const Form = () => {
                     <div className="dotted label">ROI</div>
                     <div
                       className={
-                        roi > 0.0
-                          ? "green numbers fs-2 bold"
-                          : "red numbers fs-2 bold"
+                        roi > 0.0 ? "green numbers bold" : "red numbers bold"
                       }
                     >
                       {roi > 0 ? `+ ${roi.toFixed(2)}%` : `${roi.toFixed(2)}%`}
@@ -246,7 +246,9 @@ const Form = () => {
                       {marginRatio}%
                     </div>
                     <div className="label">Liq. Price (USDT)</div>
-                    <div className="numbers">{lidPrice.toFixed(5)}</div>
+                    <div className="numbers">
+                      {lidPrice.toFixed(entryPriceDecimals)}
+                    </div>
                   </div>
                 </div>
               </div>

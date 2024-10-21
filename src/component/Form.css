@@ -143,6 +143,7 @@ span.gmt.gray {
 
 .bold {
   font-weight: bold;
+  font-size: 26px;
 }
 .card-footer {
   display: flex;
