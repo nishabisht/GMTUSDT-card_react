@@ -221,7 +221,7 @@ const Form = () => {
                   <div className="col text-end">
                     <div className="dotted label">ROI</div>
                     <div className="green numbers bold">
-                      + ${roi.toFixed(2)}%
+                      + {roi.toFixed(2)}%
                     </div>
                     <div className="dotted label">Margin Ratio</div>
                     <div className="green numbers">
