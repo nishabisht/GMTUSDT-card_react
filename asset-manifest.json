@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/static/css/main.522bee40.css",
-    "main.js": "/static/js/main.0def7610.js",
+    "main.js": "/static/js/main.96b00d06.js",
     "static/js/453.ace3e5dd.chunk.js": "/static/js/453.ace3e5dd.chunk.js",
     "static/media/HvDTrial_FabrikatKompakt-Light-BF64d599868b650.otf": "/static/media/HvDTrial_FabrikatKompakt-Light-BF64d599868b650.2d33edbbf120f77e4e4a.otf",
     "static/media/HvDTrial_FabrikatKompakt-Medium-BF64d599863ad82.otf": "/static/media/HvDTrial_FabrikatKompakt-Medium-BF64d599863ad82.6057b9f152a6ce679c18.otf",
     "static/media/HvDTrial_FabrikatKompakt-Black-BF64d5998612cf0.otf": "/static/media/HvDTrial_FabrikatKompakt-Black-BF64d5998612cf0.f8f5664f257a6edc7e9e.otf",
     "index.html": "/index.html",
     "main.522bee40.css.map": "/static/css/main.522bee40.css.map",
-    "main.0def7610.js.map": "/static/js/main.0def7610.js.map",
+    "main.96b00d06.js.map": "/static/js/main.96b00d06.js.map",
     "453.ace3e5dd.chunk.js.map": "/static/js/453.ace3e5dd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.522bee40.css",
-    "static/js/main.0def7610.js"
+    "static/js/main.96b00d06.js"
   ]
 }
