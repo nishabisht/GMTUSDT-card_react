@@ -180,16 +180,12 @@ const Form = () => {
                   <span className="gmt-badge">Perp</span>
                   <span className="gmt-badge">Cross {leverage}x</span>
                   <span
-                    className={tradeType === "short" ? "gmt red" : "gmt green"}
+                    className="gmt green"
                   >
                     !!!
                     <span
                       className={
-                        tradeType === "short"
-                          ? roi >= 100
-                            ? "gmt red"
-                            : "gmt gray"
-                          : roi >= 100
+                        roi >= 100
                           ? "gmt green"
                           : "gmt gray"
                       }
@@ -206,13 +202,7 @@ const Form = () => {
                 <div className="row">
                   <div className="col">
                     <div className="dotted label">Unrealized PNL (USDT)</div>
-                    <div
-                      className={
-                        unreleasedPnl > 0.0
-                          ? "green numbers bold"
-                          : "red numbers bold"
-                      }
-                    >
+                    <div className="green numbers bold">
                       {unreleasedPnl.toFixed(2)}
                     </div>
                     <div className="dotted label">Size (USDT)</div>
@@ -230,19 +220,11 @@ const Form = () => {
                   </div>
                   <div className="col text-end">
                     <div className="dotted label">ROI</div>
-                    <div
-                      className={
-                        roi > 0.0 ? "green numbers bold" : "red numbers bold"
-                      }
-                    >
-                      {roi > 0 ? `+ ${roi.toFixed(2)}%` : `${roi.toFixed(2)}%`}
+                    <div className="green numbers bold">
+                      `+ ${roi.toFixed(2)}%`
                     </div>
                     <div className="dotted label">Margin Ratio</div>
-                    <div
-                      className={
-                        marginRatio < 0.0 ? "red numbers" : "green numbers"
-                      }
-                    >
+                    <div className="green numbers">
                       {marginRatio}%
                     </div>
                     <div className="label">Liq. Price (USDT)</div>
