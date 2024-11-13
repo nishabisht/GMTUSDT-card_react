@@ -14,7 +14,7 @@ const Form = () => {
   const [markPrice, setMarkPrice] = useState("");
   const [leverage, setLeverage] = useState("");
   const [size, setSize] = useState(null);
-  const [unreleasedPnl, setUnreleasedPnl] = useState(null);
+  const [unreleasedPnl, setUnreleasedPnl] = useState("");
   const [roi, setRoi] = useState(null);
   const [marginRatio, setMarginRatio] = useState(null);
   const [isCardVisible, setIsCardVisible] = useState(false);
@@ -29,7 +29,6 @@ const Form = () => {
     const calculatedRoi =
       ((markPrice - entryPrice) / entryPrice) * 100 * leverage;
     const unreleasedPnl = (calculatedRoi * margin) / 100;
-    // const calculatedMarginRatio = (margin / size) * 100;
     let calculatedLidPrice = 0;
     if (tradeType === "long") {
       calculatedLidPrice = entryPrice * (1 - 1 / leverage);
@@ -40,9 +39,8 @@ const Form = () => {
     setLidPrice(calculatedLidPrice);
     setEntryPrice(entryPrice);
     setSize(size);
-    setUnreleasedPnl(unreleasedPnl);
-    setRoi(calculatedRoi);
-    // setMarginRatio(calculatedMarginRatio);
+    setUnreleasedPnl(Math.abs(unreleasedPnl));
+    setRoi(Math.abs(calculatedRoi));
     setIsCardVisible(true);
   };
 
@@ -179,17 +177,9 @@ const Form = () => {
                   <span className="gmt">{coinType.toUpperCase()}</span>
                   <span className="gmt-badge">Perp</span>
                   <span className="gmt-badge">Cross {leverage}x</span>
-                  <span
-                    className="gmt green"
-                  >
+                  <span className="gmt green">
                     !!!
-                    <span
-                      className={
-                        roi >= 100
-                          ? "gmt green"
-                          : "gmt gray"
-                      }
-                    >
+                    <span className={roi >= 100 ? "gmt green" : "gmt gray"}>
                       !
                     </span>
                   </span>
@@ -224,9 +214,7 @@ const Form = () => {
                       + {roi.toFixed(2)}%
                     </div>
                     <div className="dotted label">Margin Ratio</div>
-                    <div className="green numbers">
-                      {marginRatio}%
-                    </div>
+                    <div className="green numbers">{marginRatio}%</div>
                     <div className="label">Liq. Price (USDT)</div>
                     <div className="numbers">
                       {lidPrice.toFixed(entryPriceDecimals)}
